@@ -1,23 +1,5 @@
 // @flow
 
-class TypeRep<A> {}
-
-export const NumberRep: TypeRep<number> = new TypeRep();
-
-export const StringRep: TypeRep<string> = new TypeRep();
-
-type Lens<A, B> = {
-  $getter(B): A;
-  $setter(A => A): (B => B);
-}
-
-function composeLens<A, B, C>(m: Lens<A, B>, n: Lens<B, C>): Lens<A, C> {
-  return {
-    $getter: x => m.$getter(n.$getter(x)),
-    $setter: f => n.$setter(m.$setter(f)),
-  }
-}
-
 function identitySetter<A>(f: (A => A)): (A => A) {
   return f;
 }
